@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Raider TC Homepage</title>
+  <title>Raider TC - High Tech</title>
+  <!-- Import a futuristic font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Reset and basic styles */
     * {
@@ -13,8 +15,10 @@
     }
     body, html {
       height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      background: #000;
+      color: #0ff;
+      overflow-x: hidden;
     }
     
     /* Navigation Bar */
@@ -23,19 +27,20 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
       z-index: 10;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      border-bottom: 1px solid #0ff;
     }
     nav .logo {
-      color: #f0a500;
+      color: #0ff;
       font-size: 28px;
-      font-weight: bold;
+      font-weight: 700;
       text-decoration: none;
+      text-shadow: 0 0 5px #0ff;
     }
     nav ul {
       list-style: none;
@@ -45,7 +50,7 @@
       margin-left: 20px;
     }
     nav ul li a {
-      color: #fff;
+      color: #0ff;
       text-decoration: none;
       font-size: 18px;
       position: relative;
@@ -57,14 +62,13 @@
       position: absolute;
       width: 0;
       height: 2px;
-      display: block;
-      background: #f0a500;
+      background: #0ff;
       transition: width 0.3s;
       bottom: 0;
       left: 0;
     }
     nav ul li a:hover {
-      color: #f0a500;
+      color: #fff;
     }
     nav ul li a:hover::after {
       width: 100%;
@@ -87,7 +91,7 @@
       height: auto;
       transform: translate(-50%, -50%);
       z-index: 1;
-      filter: brightness(0.6);
+      filter: brightness(0.3);
     }
     .video-container::before {
       content: "";
@@ -96,7 +100,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9));
       z-index: 1;
     }
     .content {
@@ -122,22 +126,21 @@
     .content h1 {
       font-size: 54px;
       margin-bottom: 20px;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 0 10px #0ff;
     }
     .content p {
       font-size: 24px;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 0 5px #0ff;
     }
     
     /* Footer */
     .footer {
-      background: #111;
-      color: #ccc;
+      background: #000;
+      color: #0ff;
       text-align: center;
       padding: 20px 0;
-      position: relative;
+      border-top: 1px solid #0ff;
       font-size: 16px;
-      letter-spacing: 0.5px;
     }
     .footer p {
       margin: 0;
@@ -183,7 +186,7 @@
     </video>
     <div class="content">
       <h1>Welcome to Raider's TC Website!</h1>
-      <p>The best team in Rofootball League!</p>
+      <p>The best team in the Rofootball League!</p>
     </div>
   </div>
   
