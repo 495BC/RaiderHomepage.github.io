@@ -150,7 +150,7 @@
       padding: 0 20px;
     }
     
-    /* Team Cards (show only second & third columns) */
+    /* Team Cards - Display 3 lines: Username, Position, Discord */
     .team-card {
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -243,15 +243,18 @@
         .then(response => response.text())
         .then(data => {
           const lines = data.split("\n");
-          // Remove header row
+          // Remove header row (Username, Position, Discord Username)
           lines.shift();
+          
           const teamGrid = document.querySelector(".team-grid");
           
           lines.forEach(line => {
-            if(line.trim() === "") return;
+            // Skip any empty lines
+            if (line.trim() === "") return;
+            
             const fields = line.split(",");
-            // CSV columns: 0=Username, 1=Position, 2=Discord Username
-            // We skip the Username (column 0) so only position & Discord appear.
+            // 0: Username, 1: Position, 2: Discord
+            const username = fields[0]?.trim();
             const position = fields[1]?.trim();
             const discord  = fields[2]?.trim();
             
@@ -259,11 +262,17 @@
             const card = document.createElement("div");
             card.className = "team-card";
             
-            // Show only the second & third columns
+            // 1) Username
+            const pUsername = document.createElement("p");
+            pUsername.textContent = username;
+            card.appendChild(pUsername);
+            
+            // 2) Position
             const pPosition = document.createElement("p");
             pPosition.textContent = position;
             card.appendChild(pPosition);
             
+            // 3) Discord
             const pDiscord = document.createElement("p");
             pDiscord.textContent = discord;
             card.appendChild(pDiscord);
