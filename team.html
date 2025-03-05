@@ -138,18 +138,8 @@
       padding: 60px 20px 80px;
       text-align: center;
     }
-    .team-content h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px var(--accent-color);
-      letter-spacing: 2px;
-    }
-    .team-content p {
-      font-size: 20px;
-      margin-bottom: 40px;
-      text-shadow: 0 0 5px var(--accent-color);
-    }
-    
+    /* Removed top heading text */
+
     /* Team Grid Layout */
     .team-grid {
       display: grid;
@@ -160,7 +150,7 @@
       padding: 0 20px;
     }
     
-    /* Team Cards (no top image or name) */
+    /* Team Cards (no top image or duplicate username) */
     .team-card {
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -169,7 +159,6 @@
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       backdrop-filter: blur(2px);
-      /* We'll leave them with minimal text inside */
     }
     .team-card:hover {
       transform: translateY(-10px);
@@ -214,12 +203,6 @@
     
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      .team-content h1 {
-        font-size: 36px;
-      }
-      .team-content p {
-        font-size: 18px;
-      }
       .team-grid {
         gap: 20px;
       }
@@ -240,8 +223,7 @@
   <div class="team-container">
     <div class="bg-image"></div>
     <div class="team-content">
-      <h1>Meet the Team</h1>
-      <p>Our roster is filled with exceptional talent, passion, and drive.</p>
+      <!-- Removed the h1 and p top text -->
       <div class="team-grid">
         <!-- Team cards will be generated here from CSV data -->
       </div>
@@ -270,7 +252,7 @@
             if(line.trim() === "") return;
             const fields = line.split(",");
             // Expected CSV columns: Username, Position, Discord Username (A,B,C)
-            const username = fields[0].trim();
+            // Discard the first column (Username) to avoid duplicate info.
             const position = fields[1].trim();
             const discord = fields[2].trim();
             
@@ -278,7 +260,6 @@
             const card = document.createElement("div");
             card.className = "team-card";
             
-            // We removed the image and heading. Just show minimal info.
             // Position
             const pPosition = document.createElement("p");
             pPosition.textContent = position;
