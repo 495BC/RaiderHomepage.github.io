@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Raider TC - Team Roster</title>
   <!-- Import IBM Plex Sans -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -138,7 +138,6 @@
       padding: 60px 20px 80px;
       text-align: center;
     }
-    /* No heading text here, just the grid */
 
     /* Team Grid Layout */
     .team-grid {
@@ -150,7 +149,7 @@
       padding: 0 20px;
     }
     
-    /* Team Cards - Display 3 lines: Username, Position, Discord */
+    /* Team Cards */
     .team-card {
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -164,8 +163,25 @@
       transform: translateY(-10px);
       box-shadow: 0 10px 20px var(--shadow-color);
     }
-    .team-card p {
-      font-size: 16px;
+
+    /* First column: bold & larger */
+    .username-line {
+      font-weight: 700; /* bold */
+      font-size: 1.2rem; /* larger than normal (adjust as needed) */
+      margin-bottom: 5px;
+    }
+
+    /* Second column: bold, but not bigger than first column */
+    .position-line {
+      font-weight: 700; 
+      font-size: 1rem; /* normal size, but bold */
+      margin-bottom: 5px;
+    }
+
+    /* Third column: normal weight */
+    .discord-line {
+      font-size: 0.95rem; /* slightly smaller or same size as second column */
+      font-weight: 400;
       margin-bottom: 5px;
     }
     
@@ -205,6 +221,15 @@
     @media (max-width: 768px) {
       .team-grid {
         gap: 20px;
+      }
+      .username-line {
+        font-size: 1.1rem;
+      }
+      .position-line {
+        font-size: 0.95rem;
+      }
+      .discord-line {
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -262,18 +287,21 @@
             const card = document.createElement("div");
             card.className = "team-card";
             
-            // 1) Username
+            // 1) Username: Bold & Larger
             const pUsername = document.createElement("p");
+            pUsername.classList.add("username-line");
             pUsername.textContent = username;
             card.appendChild(pUsername);
             
-            // 2) Position
+            // 2) Position: Bold
             const pPosition = document.createElement("p");
+            pPosition.classList.add("position-line");
             pPosition.textContent = position;
             card.appendChild(pPosition);
             
-            // 3) Discord
+            // 3) Discord: Normal weight
             const pDiscord = document.createElement("p");
+            pDiscord.classList.add("discord-line");
             pDiscord.textContent = discord;
             card.appendChild(pDiscord);
             
