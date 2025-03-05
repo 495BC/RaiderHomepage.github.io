@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raider TC - Team Roster</title>
+  <!-- Import IBM Plex Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Variables for theme customization */
+    :root {
+      --primary-color: #fff;
+      --accent-color: #fff;
+      --bg-color: #000;
+      --shadow-color: rgba(255, 255, 255, 0.3);
+      --nav-height: 80px;
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Global Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg-color);
+      color: var(--primary-color);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Navigation Bar (reuse similar style) */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      z-index: 100;
+      border-bottom: 1px solid var(--accent-color);
+      transition: background 0.5s ease;
+    }
+    nav:hover {
+      background: rgba(0, 0, 0, 0.95);
+    }
+    nav .logo {
+      color: var(--primary-color);
+      font-size: 28px;
+      font-weight: 700;
+      text-decoration: none;
+      text-shadow: 0 0 5px var(--accent-color);
+      transition: transform 0.3s ease;
+    }
+    nav .logo:hover {
+      transform: scale(1.05);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+    nav ul li {
+      margin-left: 20px;
+      position: relative;
+    }
+    nav ul li a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 18px;
+      padding: 5px 0;
+      transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #ccc;
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    
+    /* Team Page Background */
+    .team-container {
+      position: relative;
+      min-height: 100vh;
+      padding-top: var(--nav-height);
+      overflow: hidden;
+    }
+    .team-container .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('your-team-bg.png') no-repeat center center;
+      background-size: cover;
+      opacity: 0.7;
+      z-index: 1;
+    }
+    /* Optional overlay for extra depth */
+    .team-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+      transform: translate(-25%, -25%);
+      z-index: 2;
+      opacity: 0.6;
+      animation: rotateOverlay 30s linear infinite;
+    }
+    @keyframes rotateOverlay {
+      from { transform: translate(-25%, -25%) rotate(0deg); }
+      to { transform: translate(-25%, -25%) rotate(360deg); }
+    }
+
+    /* Team Content */
+    .team-content {
+      position: relative;
+      z-index: 3;
+      padding: 60px 20px 80px;
+      text-align: center;
+    }
+    .team-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px var(--accent-color);
+      letter-spacing: 2px;
+    }
+    .team-content p {
+      font-size: 20px;
+      margin-bottom: 40px;
+      text-shadow: 0 0 5px var(--accent-color);
+    }
+    
+    /* Team Grid Layout */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Team Cards */
+    .team-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(2px);
+    }
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px var(--shadow-color);
+    }
+    .team-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      transition: opacity 0.3s ease;
+    }
+    .team-card img:hover {
+      opacity: 0.8;
+    }
+    .team-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px var(--accent-color);
+    }
+    .team-card p {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    
+    /* Footer (same style as before) */
+    .footer {
+      background: var(--bg-color);
+      color: var(--primary-color);
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid var(--accent-color);
+      font-size: 16px;
+      position: relative;
+      z-index: 5;
+    }
+    .footer::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: var(--accent-color);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    .footer p {
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .team-content h1 {
+        font-size: 36px;
+      }
+      .team-content p {
+        font-size: 18px;
+      }
+      .team-grid {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">Raiders</a>
+    <ul>
+      <li><a href="index.html">Home page</a></li>
+      <li><a href="team.html">Team roster</a></li>
+      <li><a href="https://495bc.github.io/#">Stat page</a></li>
+      <li><a href="record.html">Record page</a></li>
+    </ul>
+  </nav>
+  
+  <div class="team-container">
+    <div class="bg-image"></div>
+    <div class="team-content">
+      <h1>Meet the Team</h1>
+      <p>Our roster is filled with exceptional talent, passion, and drive.</p>
+      <div class="team-grid">
+        <!-- Example Team Card -->
+        <div class="team-card">
+          <img src="player1.jpg" alt="Player 1">
+          <h3>John Doe</h3>
+          <p>Forward</p>
+          <p>Jersey #10</p>
+        </div>
+        <div class="team-card">
+          <img src="player2.jpg" alt="Player 2">
+          <h3>Jane Smith</h3>
+          <p>Goalkeeper</p>
+          <p>Jersey #1</p>
+        </div>
+        <div class="team-card">
+          <img src="player3.jpg" alt="Player 3">
+          <h3>Mike Brown</h3>
+          <p>Defender</p>
+          <p>Jersey #5</p>
+        </div>
+        <div class="team-card">
+          <img src="player4.jpg" alt="Player 4">
+          <h3>Emily White</h3>
+          <p>Midfielder</p>
+          <p>Jersey #8</p>
+        </div>
+        <!-- Add more team cards as needed -->
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <p>&copy; 2025 Website creator Discord: @siyazof</p>
+  </footer>
+</body>
+</html>
