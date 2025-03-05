@@ -107,12 +107,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('your-team-bg.png') no-repeat center center;
+      background: url('https://cdn.discordapp.com/attachments/1192252160432422922/1346708631952822383/Screenshot202025-02-2120193353.png?ex=67c92ba6&is=67c7da26&hm=547b403a4e179bd3e964c69f986372661c603482623e0efab51539a4b87d871a&') no-repeat center center;
       background-size: cover;
       opacity: 0.7;
       z-index: 1;
     }
-    /* Optional overlay for extra depth */
+    /* Optional animated overlay for depth */
     .team-container::before {
       content: "";
       position: absolute;
@@ -258,32 +258,7 @@
       <h1>Meet the Team</h1>
       <p>Our roster is filled with exceptional talent, passion, and drive.</p>
       <div class="team-grid">
-        <!-- Example Team Card -->
-        <div class="team-card">
-          <img src="player1.jpg" alt="Player 1">
-          <h3>John Doe</h3>
-          <p>Forward</p>
-          <p>Jersey #10</p>
-        </div>
-        <div class="team-card">
-          <img src="player2.jpg" alt="Player 2">
-          <h3>Jane Smith</h3>
-          <p>Goalkeeper</p>
-          <p>Jersey #1</p>
-        </div>
-        <div class="team-card">
-          <img src="player3.jpg" alt="Player 3">
-          <h3>Mike Brown</h3>
-          <p>Defender</p>
-          <p>Jersey #5</p>
-        </div>
-        <div class="team-card">
-          <img src="player4.jpg" alt="Player 4">
-          <h3>Emily White</h3>
-          <p>Midfielder</p>
-          <p>Jersey #8</p>
-        </div>
-        <!-- Add more team cards as needed -->
+        <!-- Team cards will be generated here from CSV data -->
       </div>
     </div>
   </div>
@@ -291,5 +266,62 @@
   <footer class="footer">
     <p>&copy; 2025 Website creator Discord: @siyazof</p>
   </footer>
+
+  <!-- JavaScript to fetch and parse CSV data from Google Sheets -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Replace with your actual Google Sheets CSV URL
+      const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSXonEHQpWZwu3I4bb8KSp2N_a2lvC-oBfbMqr2OysCnY04zxgnKr8SEHGrA6fFJLtxIkSGh7ye9qmd/pub?output=csv";
+      
+      fetch(csvUrl)
+        .then(response => response.text())
+        .then(data => {
+          const lines = data.split("\n");
+          // Remove header row and trim potential whitespace
+          const header = lines.shift().split(",").map(h => h.trim());
+          const teamGrid = document.querySelector(".team-grid");
+          
+          lines.forEach(line => {
+            if(line.trim() === "") return;
+            const fields = line.split(",");
+            // Expected CSV columns: Username, Position, Discord Username (A,B,C)
+            const username = fields[0].trim();
+            const position = fields[1].trim();
+            const discord = fields[2].trim();
+            
+            // Create team card
+            const card = document.createElement("div");
+            card.className = "team-card";
+            
+            // Create a placeholder image with the username (optional)
+            const img = document.createElement("img");
+            img.src = "https://via.placeholder.com/220x220?text=" + encodeURIComponent(username);
+            img.alt = username;
+            card.appendChild(img);
+            
+            // Username
+            const h3 = document.createElement("h3");
+            h3.textContent = username;
+            card.appendChild(h3);
+            
+            // Position
+            const pPosition = document.createElement("p");
+            pPosition.textContent = position;
+            card.appendChild(pPosition);
+            
+            // Discord Username
+            const pDiscord = document.createElement("p");
+            pDiscord.textContent = discord;
+            card.appendChild(pDiscord);
+            
+            // Append the card to the team grid
+            teamGrid.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching CSV data:", error);
+        });
+    });
+  </script>
 </body>
 </html>
