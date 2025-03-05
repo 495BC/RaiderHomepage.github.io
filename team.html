@@ -138,7 +138,7 @@
       padding: 60px 20px 80px;
       text-align: center;
     }
-    /* Removed top heading text */
+    /* No heading text here, just the grid */
 
     /* Team Grid Layout */
     .team-grid {
@@ -150,7 +150,7 @@
       padding: 0 20px;
     }
     
-    /* Team Cards (no top image or duplicate username) */
+    /* Team Cards (show only second & third columns) */
     .team-card {
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -223,7 +223,6 @@
   <div class="team-container">
     <div class="bg-image"></div>
     <div class="team-content">
-      <!-- Removed the h1 and p top text -->
       <div class="team-grid">
         <!-- Team cards will be generated here from CSV data -->
       </div>
@@ -251,26 +250,25 @@
           lines.forEach(line => {
             if(line.trim() === "") return;
             const fields = line.split(",");
-            // Expected CSV columns: Username, Position, Discord Username (A,B,C)
-            // Discard the first column (Username) to avoid duplicate info.
-            const position = fields[1].trim();
-            const discord = fields[2].trim();
+            // CSV columns: 0=Username, 1=Position, 2=Discord Username
+            // We skip the Username (column 0) so only position & Discord appear.
+            const position = fields[1]?.trim();
+            const discord  = fields[2]?.trim();
             
-            // Create team card
+            // Create a team card
             const card = document.createElement("div");
             card.className = "team-card";
             
-            // Position
+            // Show only the second & third columns
             const pPosition = document.createElement("p");
             pPosition.textContent = position;
             card.appendChild(pPosition);
             
-            // Discord Username
             const pDiscord = document.createElement("p");
             pDiscord.textContent = discord;
             card.appendChild(pDiscord);
             
-            // Append the card to the team grid
+            // Add the card to the grid
             teamGrid.appendChild(card);
           });
         })
